@@ -1,0 +1,20 @@
+{
+  "name": "extensionbookmarks",
+  "version": "1.0.0",
+  "description": "Extesion for create personalize bookmarks\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5Dmanagmet bookmarks",
+  "main": "pojs",
+  "scripts": {
+    "test": "test",
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "author": "juanpa.box.77@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "firebase": "^9.8.4"
+  }
+}
