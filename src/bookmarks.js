@@ -1,28 +1,21 @@
-import Db from "./db";
+import Category from "./category";
+import Db from "./data/db";
 
 class BookmarksPopup {
   constructor() {
     this.db = new Db()
+    this.category = new Category(this.db.category)
     this.inputName;
     this.inputCategory;
-    this.categoryList;
-    this.isCategoryListVisible = false
   }
-  
-  toggelVisibility() {
-    const categoryList = document.getElementById('category-options')
-    this.isCategoryListVisible
-      ? categoryList.classList.remove('category-options--visible')
-      : categoryList.classList.add('category-options--visible')
-    this.isCategoryListVisible = !this.isCategoryListVisible
-  }
-  
-  setCategoryList(newCategories) {
-    const $wrapperCategory = document.getElementById('category-options')
-    newCategories.map((category) => {
-      const $newCategory = document.createElement('li')
-      $newCategory.appendChild(document.createTextNode(category))
-      return $wrapperCategory.appendChild($newCategory)
+
+ showSelect() {
+  this.db.category.format()
+    .then((categories) => {
+    // transform in seter
+      this.category.categoryList = categories
+      console.log(categories)
+      this.category.printCategoryList()
     })
   }
   
@@ -33,7 +26,7 @@ class BookmarksPopup {
     return tab;
   }
 
-  setTitleTab() {
+  setTitleBookmark() {
     this.inputName = document.getElementById('inputTitle')
     this.getCurrentTab().then((res) => this.inputName.value = res.title)
   }
@@ -47,8 +40,8 @@ class BookmarksPopup {
   async sendPages () {
     const page = await this.getCurrentTab()
     this.setCategory()
-    console.log(this)
     this.db.addToBookmarks(page, this.inputCategory)
+    console.log(this)
   }
     
 }
