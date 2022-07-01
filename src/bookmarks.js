@@ -5,8 +5,11 @@ class BookmarksPopup {
   constructor() {
     this.db = new Db()
     this.category = new Category(this.db.category)
-    this.inputName;
-    this.inputCategory;
+    this.inputCategory = 'inbox';
+    this.page = {
+      title: '',
+      url: ''
+    };
   }
 
  showSelect() {
@@ -14,7 +17,6 @@ class BookmarksPopup {
     .then((categories) => {
     // transform in seter
       this.category.categoryList = categories
-      console.log(categories)
       this.category.printCategoryList()
     })
   }
@@ -26,24 +28,48 @@ class BookmarksPopup {
     return tab;
   }
 
+  setInputTitle() {
+    const inputName = document.getElementById('inputTitle')
+    inputName.value = this.page.title
+  }
+
+  setTilte() {
+    this.page.title = document.getElementById('inputTitle').value
+  }
+
+  setPage() {
+    this.getCurrentTab().then((res) => {
+      this.page.title = res.title
+      this.page.url = res.url
+      this.setInputTitle()
+    })
+  }
+
   setTitleBookmark() {
     this.inputName = document.getElementById('inputTitle')
-    this.getCurrentTab().then((res) => this.inputName.value = res.title)
+    this.getCurrentTab().then((res) => {
+      this.inputName.value = res.title
+    })
   }
 
   setCategory() {
-    const inputValue = document.getElementById('inputCategory').value
-    this.inputCategory = inputValue
+    const inputValue = document.getElementById('selected').textContent
+    // this.inputCategory = inputValue
     console.log(inputValue)
   }
 
   async sendPages () {
-    const page = await this.getCurrentTab()
+    this.setTilte()
     this.setCategory()
-    this.db.addToBookmarks(page, this.inputCategory)
-    console.log(this)
+    console.log(this.inputCategory)
+    this.db.addToBookmarks(this.page, this.inputCategory)
   }
-    
+  
+  async deletPages() {
+    this.setTilte()
+    this.setCategory()
+    this.db.deletBookmarks(this.page, this.inputCategory)
+  }
 }
 
 export default BookmarksPopup

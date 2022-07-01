@@ -11,7 +11,6 @@ class Category {
   setCategory() {
     const inputValue = document.getElementById('input-newCategory').value
     this.inputCategory = inputValue
-    console.log(inputValue)
     return inputValue
   }
   
@@ -58,7 +57,6 @@ class Category {
 
     }
     this.toggelVisibility()
-    console.log(e.target.dataset.value)
   }
   
   toggelVisibility() {
