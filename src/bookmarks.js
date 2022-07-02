@@ -4,8 +4,7 @@ import Db from "./data/db";
 class BookmarksPopup {
   constructor() {
     this.db = new Db()
-    this.category = new Category(this.db.category)
-    this.inputCategory = 'inbox';
+    this.category = new Category()
     this.page = {
       title: '',
       url: ''
@@ -17,10 +16,11 @@ class BookmarksPopup {
     .then((categories) => {
     // transform in seter
       this.category.categoryList = categories
+      this.category.filteredList = categories
       this.category.printCategoryList()
     })
   }
-  
+
   async getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
@@ -52,23 +52,14 @@ class BookmarksPopup {
     })
   }
 
-  setCategory() {
-    const inputValue = document.getElementById('selected').textContent
-    // this.inputCategory = inputValue
-    console.log(inputValue)
-  }
-
   async sendPages () {
     this.setTilte()
-    this.setCategory()
-    console.log(this.inputCategory)
-    this.db.addToBookmarks(this.page, this.inputCategory)
+    this.db.addToBookmarks(this.page, this.category.inputCategory)
   }
   
   async deletPages() {
     this.setTilte()
-    this.setCategory()
-    this.db.deletBookmarks(this.page, this.inputCategory)
+    this.db.deletBookmarks(this.page, this.category.inputCategory)
   }
 }
 

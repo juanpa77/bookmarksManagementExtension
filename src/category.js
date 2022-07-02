@@ -1,62 +1,68 @@
 
 class Category {
-  constructor(dbCatigory) {
-    this.dbCategory = dbCatigory
+  constructor() {
     this.categoryList
+    this.filteredList
     this.isCategoryListVisible = false
-    this.selectedCategory = 'inbox'
     this.inputCategory
-  }
-  
-  setCategory() {
-    const inputValue = document.getElementById('input-newCategory').value
-    this.inputCategory = inputValue
-    return inputValue
-  }
-  
-  cancelFormNewCategory() {
-    const $wrapperSelected = document.getElementById('wrapperSelected')
-    while($wrapperSelected.firstChild) {
-      $wrapperSelected.removeChild($wrapperSelected.firstChild)
-    }
-    const $newSelected = document.createElement('span')
-    $newSelected.classList.add('selected')
-    $newSelected.id = 'selected'
-    $wrapperSelected.appendChild($newSelected)
+    this.indexOver = 0
   }
 
-  addFormNewCategory() {
-    const $wrapperSelected = document.getElementById('wrapperSelected')
-    const $selected = document.getElementById('selected')
-    $wrapperSelected.removeChild($selected)
-    const $inputCategory = document.createElement('input')
-    $inputCategory.id = 'input-newCategory'
-    const $cancelBtn = document.createElement('div')
-    $cancelBtn.classList.add('btn-cancel')
-    $cancelBtn.id = 'btn-canel'
-    $cancelBtn.textContent = 'X'
-    $wrapperSelected.appendChild($inputCategory)
-    $wrapperSelected.appendChild($cancelBtn)
-    this.isCategoryListVisible = false
-    this.toggelVisibility()
-    this.addEventSubmit()
-  }
-
-  addEventSubmit() {
-    document.getElementById('input-newCategory').addEventListener('keydown', (evnt) => {
-      if (evnt.key === 'Enter' ) this.dbCategory.add(this.setCategory())
+  filterCategories() {
+    const reslut = this.categoryList.filter((category) => {
+      if (category.includes(this.inputCategory)) return category
     })
+    this.filteredList = reslut
   }
   
-  setCategorySelected(e) {
-    const $selected = document.getElementById('selected')
-    this.selectedCategory = e.target.dataset.value
-    $selected.textContent = this.selectedCategory 
-    if (this.selectedCategory === 'newCategory') {
-      this.addFormNewCategory()
+  setInputCategory(category) {
+    this.inputCategory = category
+  }
 
+  removeClass(elemtns, className) {
+    const elemntLis = Array.from(elemtns)
+    elemntLis.forEach((element) => element.classList.remove(className))
+  }
+  
+  filterOver() {
+    const $wrapperCategory = document.getElementById('category-options').childNodes
+    this.removeClass($wrapperCategory, 'filterSelecter')
+    $wrapperCategory[this.indexOver].classList.add('filterSelecter')    
+  }
+
+  moveOver(key) {
+    const totalItem = this.filteredList.length - 1
+    const isLast = this.indexOver >= totalItem
+    const isFirst = this.indexOver <= 0
+
+    if (key === 'ArrowDown' && isLast === false) {
+      this.indexOver += 1 
+      this.filterOver()
     }
+
+    if (key === 'ArrowUp' && isFirst === false) {
+      this.indexOver -= 1 
+      this.filterOver()
+    }
+  }
+
+  setCategorySelected(category) {
+    const $inputCategory = document.getElementById('selected')
+    this.setInputCategory(category)
+    $inputCategory.value = this.inputCategory 
     this.toggelVisibility()
+  }
+
+  onChangeInput() {
+    const $inputCategory = document.getElementById('selected')
+    $inputCategory.addEventListener('input', (evnt) => {
+      if (this.isCategoryListVisible === false) this.toggelVisibility()
+      this.inputCategory = evnt.target.value
+      this.filterCategories()
+      this.printCategoryList()
+      this.indexOver = 0
+      this.filterCategories()
+    })
   }
   
   toggelVisibility() {
@@ -65,16 +71,21 @@ class Category {
       ? categoryList.classList.remove('category-options--visible')
       : categoryList.classList.add('category-options--visible')
     this.isCategoryListVisible = !this.isCategoryListVisible
+    console.log(this.isCategoryListVisible)
   }
 
   printCategoryList() {
     const $wrapperCategory = document.getElementById('category-options')
-    this.categoryList.map((category) => {
+    while($wrapperCategory.firstChild) {
+      $wrapperCategory.removeChild($wrapperCategory.firstChild)
+    }
+    this.filteredList.map((category) => {
       const $newCategory = document.createElement('li')
       $newCategory.setAttribute('data-value', category)
       $newCategory.appendChild(document.createTextNode(category))
       return $wrapperCategory.appendChild($newCategory)
     })
+    this.filterOver()
   }
 }
 
