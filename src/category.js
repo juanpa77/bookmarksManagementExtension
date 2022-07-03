@@ -4,7 +4,7 @@ class Category {
     this.categoryList
     this.filteredList
     this.isCategoryListVisible = false
-    this.inputCategory
+    this.inputCategory = 'inbox'
     this.indexOver = 0
   }
 
@@ -57,7 +57,7 @@ class Category {
     const $inputCategory = document.getElementById('selected')
     $inputCategory.addEventListener('input', (evnt) => {
       if (this.isCategoryListVisible === false) this.toggelVisibility()
-      this.inputCategory = evnt.target.value
+      this.setInputCategory(evnt.target.value)
       this.filterCategories()
       this.printCategoryList()
       this.indexOver = 0

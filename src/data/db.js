@@ -1,6 +1,6 @@
 
 import { FieldValue, getFirestore, arrayRemove } from "firebase/firestore/lite";
-import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, setDoc } from "firebase/firestore";
 import app from "../credentials";
 import Category from "./category";
 
@@ -10,17 +10,21 @@ class Db {
     this.category = new Category(this.db) 
   }
 
-  async addToBookmarks(page, category) {
+  async addToBookmarks(page, category, categoryList) {
     const pageRef = doc(this.db, 'bookmarks', category)
-    updateDoc(pageRef, {
+    const pageData = {
       pages: arrayUnion({
         url: page.url,
         title: page.title
       })
-    },
-    {
-      merge: true
-    })
+    }
+    console.log(categoryList.includes(category))
+    if (categoryList.includes(category)) {
+      await this.category.add(category)
+      await  updateDoc(pageRef, pageData, { merge: true })
+      return
+    }
+    await setDoc(pageRef, pageData)
   }
 
   async deletBookmarks(page, category) {

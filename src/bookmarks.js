@@ -14,6 +14,7 @@ class BookmarksPopup {
  showSelect() {
   this.db.category.format()
     .then((categories) => {
+      console.log(categories)
     // transform in seter
       this.category.categoryList = categories
       this.category.filteredList = categories
@@ -54,7 +55,8 @@ class BookmarksPopup {
 
   async sendPages () {
     this.setTilte()
-    this.db.addToBookmarks(this.page, this.category.inputCategory)
+    console.log(this.page, this.category.inputCategory, this.category.categoryList)
+    this.db.addToBookmarks(this.page, this.category.inputCategory, this.category.categoryList)
   }
   
   async deletPages() {
