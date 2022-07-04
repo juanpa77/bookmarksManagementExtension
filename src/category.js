@@ -27,7 +27,7 @@ class Category {
   filterOver() {
     const $wrapperCategory = document.getElementById('category-options').childNodes
     this.removeClass($wrapperCategory, 'filterSelecter')
-    $wrapperCategory[this.indexOver].classList.add('filterSelecter')    
+    if ($wrapperCategory.length !== 0) $wrapperCategory[this.indexOver].classList.add('filterSelecter')
   }
 
   moveOver(key) {
@@ -58,10 +58,8 @@ class Category {
     $inputCategory.addEventListener('input', (evnt) => {
       if (this.isCategoryListVisible === false) this.toggelVisibility()
       this.setInputCategory(evnt.target.value)
-      this.filterCategories()
       this.printCategoryList()
       this.indexOver = 0
-      this.filterCategories()
     })
   }
   
@@ -71,7 +69,6 @@ class Category {
       ? categoryList.classList.remove('category-options--visible')
       : categoryList.classList.add('category-options--visible')
     this.isCategoryListVisible = !this.isCategoryListVisible
-    console.log(this.isCategoryListVisible)
   }
 
   printCategoryList() {
@@ -79,13 +76,20 @@ class Category {
     while($wrapperCategory.firstChild) {
       $wrapperCategory.removeChild($wrapperCategory.firstChild)
     }
-    this.filteredList.map((category) => {
+    this.filterCategories()
+    this.inputCategory.length === 0? this.createCategoryList(this.categoryList)
+    : this.createCategoryList(this.filteredList) 
+    this.filterOver()
+  }
+
+  createCategoryList(categories) {
+    categories.map((category) => {
+      const $wrapperCategory = document.getElementById('category-options')
       const $newCategory = document.createElement('li')
       $newCategory.setAttribute('data-value', category)
       $newCategory.appendChild(document.createTextNode(category))
       return $wrapperCategory.appendChild($newCategory)
     })
-    this.filterOver()
   }
 }
 

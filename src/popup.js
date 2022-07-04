@@ -14,11 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedCategory = popup.category.filteredList[popup.category.indexOver]
     if (event.key === 'Enter') popup.category.setCategorySelected(selectedCategory)
     popup.category.moveOver(event.key)
-    console.log(event.key)
   })
   
   $wrapperCategory.addEventListener('click', (e) => {
-    console.log(e.target)
     if(e.target.id === 'selected') $input.select()
   })
 
