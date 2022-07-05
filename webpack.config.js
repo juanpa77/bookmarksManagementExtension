@@ -2,10 +2,13 @@ const path = require('path')
 
 module.exports = {
   mode: 'development',
-  entry: './src/popup.js',
+  entry: {
+    popup: './src/popup.js',
+    background: './src/background.js'
+  },
   output: {
-    filename: 'popup.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].js'
   },
   devtool: 'inline-source-map',
 
