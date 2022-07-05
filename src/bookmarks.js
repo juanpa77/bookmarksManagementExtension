@@ -8,7 +8,8 @@ class BookmarksPopup {
     this.page = {
       title: '',
       url: '',
-      icon: ''
+      icon: '',
+      categories: [this.category.inputCategory]
     };
   }
 
@@ -69,7 +70,7 @@ class BookmarksPopup {
   
   async deletPages() {
     this.setTilte()
-    this.db.deletBookmarks(this.page, this.category.inputCategory)
+    this.db.deletBookmarks(this.page)
   }
 }
 
