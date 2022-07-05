@@ -7,7 +7,8 @@ class BookmarksPopup {
     this.category = new Category()
     this.page = {
       title: '',
-      url: ''
+      url: '',
+      icon: ''
     };
   }
 
@@ -33,6 +34,11 @@ class BookmarksPopup {
     inputName.value = this.page.title
   }
 
+  setPageIcon() {
+    const $icon = document.getElementById('pageIcon')
+    $icon.src = this.page.icon
+  }
+
   setTilte() {
     this.page.title = document.getElementById('inputTitle').value
   }
@@ -41,7 +47,10 @@ class BookmarksPopup {
     this.getCurrentTab().then((res) => {
       this.page.title = res.title
       this.page.url = res.url
+      this.page.icon = res.favIconUrl
+      // console.log(res)
       this.setInputTitle()
+      this.setPageIcon()
     })
   }
 

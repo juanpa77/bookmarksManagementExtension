@@ -15,15 +15,16 @@ class Db {
     const pageData = {
       pages: arrayUnion({
         url: page.url,
-        title: page.title
+        title: page.title,
+        icon: page.icon
       })
     }
     console.log(categoryList.includes(category))
     if (categoryList.includes(category)) {
-      await this.category.add(category)
       await  updateDoc(pageRef, pageData, { merge: true })
       return
     }
+    await this.category.add(category)
     await setDoc(pageRef, pageData)
   }
 
