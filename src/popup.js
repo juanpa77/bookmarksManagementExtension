@@ -28,4 +28,5 @@ document.addEventListener('DOMContentLoaded', () => {
   popup.category.onChangeInput()
   popup.setPage()
   popup.showSelect()
+  popup.setIcon()
 });

@@ -1,5 +1,5 @@
 
-import { FieldValue, getFirestore, arrayRemove } from "firebase/firestore/lite";
+import { getFirestore, arrayRemove } from "firebase/firestore/lite";
 import { doc, updateDoc, arrayUnion, setDoc, collection, getDocs } from "firebase/firestore";
 import app from "../credentials";
 import Category from "./category";
@@ -34,8 +34,7 @@ class Db {
         })
         // console.log(doc.id, " => ", doc.data());
       }
-    })
-    
+    }) 
   }
 }
 

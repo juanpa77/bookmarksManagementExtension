@@ -1,9 +1,11 @@
 import Category from "./category";
 import Db from "./data/db";
+import LocalBd from "./data/localDb";
 
 class BookmarksPopup {
   constructor() {
     this.db = new Db()
+    this.localDb = new LocalBd()
     this.category = new Category()
     this.page = {
       title: '',
@@ -13,6 +15,12 @@ class BookmarksPopup {
     };
   }
 
+  setIcon() {
+    chrome.action.setIcon({
+      path: "./favorites-add.png"
+    })
+  }
+  
  showSelect() {
   this.db.category.format()
     .then((categories) => {
@@ -66,11 +74,13 @@ class BookmarksPopup {
     this.setTilte()
     // console.log(this.page, this.category.inputCategory, this.category.categoryList)
     this.db.addToBookmarks(this.page, this.category.inputCategory, this.category.categoryList)
+    this.localDb.addPage(this.page)
   }
   
   async deletPages() {
     this.setTilte()
     this.db.deletBookmarks(this.page)
+    this.localDb.deletePage(this.page)
   }
 }
 
