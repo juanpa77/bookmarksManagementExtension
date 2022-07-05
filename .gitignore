@@ -1,4 +1,5 @@
 node_modules
 dist
 src/credentials.js
+src/domUtility.js
 .vscode

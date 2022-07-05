@@ -26,8 +26,8 @@ class Category {
   
   filterOver() {
     const $wrapperCategory = document.getElementById('category-options').childNodes
-    this.removeClass($wrapperCategory, 'filterSelecter')
-    if ($wrapperCategory.length !== 0) $wrapperCategory[this.indexOver].classList.add('filterSelecter')
+    this.removeClass($wrapperCategory, 'form__options--selected')
+    if ($wrapperCategory.length !== 0) $wrapperCategory[this.indexOver].classList.add('form__options--selected')
   }
 
   moveOver(key) {
@@ -66,8 +66,8 @@ class Category {
   toggelVisibility() {
     const categoryList = document.getElementById('category-options')
     this.isCategoryListVisible
-      ? categoryList.classList.remove('category-options--visible')
-      : categoryList.classList.add('category-options--visible')
+      ? categoryList.classList.remove('form__options--visible')
+      : categoryList.classList.add('form__options--visible')
     this.isCategoryListVisible = !this.isCategoryListVisible
   }
 

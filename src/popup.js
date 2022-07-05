@@ -1,3 +1,4 @@
+import "./sass/main.scss"
 import BookmarksPopup from "./bookmarks"
 
 const popup = new BookmarksPopup()
@@ -6,8 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const $wrapperCategory = document.getElementById('wrapperSelected')
   const $input = document.getElementById('selected')
   document.addEventListener('click', (evnt) => {
-    if (evnt.target.id === 'btn-add') popup.sendPages()
-    if (evnt.target.id === 'btn-delet') popup.deletPages()
+    const $elementId = evnt .target.id
+    if ($elementId === 'btn-add') popup.sendPages()
+    if ($elementId === 'btn-delet') popup.deletPages()
+    if ($elementId === 'wrapperSelected' || $elementId === 'selected') $input.select()
   })
 
   $wrapperCategory.addEventListener('keydown', (event) => {
@@ -16,10 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     popup.category.moveOver(event.key)
   })
   
-  $wrapperCategory.addEventListener('click', (e) => {
-    if(e.target.id === 'selected') $input.select()
-  })
-
   document.getElementById('category-options')
     .addEventListener('click', (e) => {
       const selectedCategory = e.target.dataset.value

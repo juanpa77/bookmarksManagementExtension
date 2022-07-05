@@ -1,0 +1,18 @@
+
+
+$background-color: rgba(9, 1, 1, 0.788);
+$primary-color: rgb(198, 6, 166);
+// linear-gradient(45deg, #f046ff, #9b00e8);
+$secondary-color: rgb(84 1 70 / 59%);
+$over-color: linear-gradient(45deg, #c85bff, #b726ff);
+$input-color: rgba(6, 5, 5, 0.503);
+$text-primary-color: #ffff;
+$text-color: #bb36fd;
+$font-size-input: 24px;
+$font-size-menu: 15px;
+
+.btn {
+  -webkit-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+}

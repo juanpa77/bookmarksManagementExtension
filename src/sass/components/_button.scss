@@ -1,0 +1,23 @@
+
+$border: 5px;
+.wrapper {
+  display: flex;
+  direction: row;
+  width: inherit;
+  justify-content: space-evenly;
+  cursor: default;
+  &__btn {
+    width: 80px;
+    background: transparent;
+    color: $primary-color;
+    border: 2px solid $primary-color;
+    // box-shadow: 0px 0px 6px 1px $primary-color;
+    border-radius: 25px;
+    padding: 10px;
+    &:hover {
+      box-shadow: 0px 0px 6px 1px $primary-color;
+      background-color: $secondary-color;
+      color: white;
+    }
+  }
+}
