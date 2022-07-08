@@ -27,8 +27,14 @@ async function isInBookmarks () {
   const tabUrl = currentTab.url
   const reslut = await localDb.getPage(tabUrl)
   console.log(reslut, tabUrl)
-  reslut 
+  reslut !== undefined
   ? setIcon("./favorites-add.png")
   : setIcon("./favorites.png")
+ console.log(reslut) 
 }
-chrome.tabs.onUpdated.addListener(isInBookmarks)
+
+chrome.tabs.onActivated.addListener(isInBookmarks)
+chrome.webNavigation.onCompleted.addListener(isInBookmarks)
+// chrome.tabs.onCreated.addListener(isInBookmarks)
+// chrome.history.onVisited.addListener(isInBookmarks)
+// chrome.tabs.onUpdated.addListener(isInBookmarks)

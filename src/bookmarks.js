@@ -15,9 +15,9 @@ class BookmarksPopup {
     };
   }
 
-  setIcon() {
+  setIcon(path) {
     chrome.action.setIcon({
-      path: "./favorites-add.png"
+      path
     })
   }
   
@@ -57,7 +57,6 @@ class BookmarksPopup {
       this.page.title = res.title
       this.page.url = res.url
       this.page.icon = res.favIconUrl
-      // console.log(res)
       this.setInputTitle()
       this.setPageIcon()
     })
@@ -72,15 +71,19 @@ class BookmarksPopup {
 
   async sendPages () {
     this.setTilte()
-    // console.log(this.page, this.category.inputCategory, this.category.categoryList)
+    console.log(this.page, this.category.inputCategory, this.category.categoryList)
     this.db.addToBookmarks(this.page, this.category.inputCategory, this.category.categoryList)
     this.localDb.addPage(this.page)
+    this.setIcon("./favorites-add.png")
+    window.close()
   }
   
   async deletPages() {
     this.setTilte()
     this.db.deletBookmarks(this.page)
     this.localDb.deletePage(this.page)
+    this.setIcon("./favorites.png")
+    window.close()
   }
 }
 
