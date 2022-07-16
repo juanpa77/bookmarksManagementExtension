@@ -75,7 +75,7 @@ class BookmarksPopup {
     this.db.addToBookmarks(this.page, this.category.inputCategory, this.category.categoryList)
     this.localDb.addPage(this.page)
     this.setIcon("./favorites-add.png")
-    window.close()
+    // window.close()
   }
   
   async deletPages() {
